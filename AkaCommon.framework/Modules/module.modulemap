@@ -1,0 +1,17 @@
+framework module AkaCommon {
+  umbrella header "AkaCommon-Umbrella.h"
+  export *
+  
+  explicit module Private {
+    header "AkaConfigurable.h"
+    header "AkaLogger.h"
+	header "AkaFileLogger.h"
+	header "AkaLegacyMacros.h"
+	header "AkaLog.h"
+	header "AkaLoggerNames.h"
+	header "AkaLogMacros.h"
+	header "AkaNetwork.h"
+	header "AkaInterceptor.h"
+  }
+}
+
