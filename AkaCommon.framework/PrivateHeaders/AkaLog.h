@@ -775,7 +775,7 @@ typedef NS_OPTIONS(NSInteger, AkaLogMessageOptions){
     NSString *_fileName;
     NSString *_function;
     NSUInteger _line;
-    id _tag;
+    id _referenceObject; // former name, 'tag', conflicts with app's UIView tag.
     AkaLogMessageOptions _options;
     NSDate *_timestamp;
     NSString *_threadID;
@@ -841,7 +841,7 @@ typedef NS_OPTIONS(NSInteger, AkaLogMessageOptions){
 @property (readonly, nonatomic) NSString *fileName;
 @property (readonly, nonatomic) NSString * __nullable function;
 @property (readonly, nonatomic) NSUInteger line;
-@property (readonly, nonatomic) id __nullable tag;
+@property (readonly, nonatomic) id __nullable referenceObject; // renamed from 'tag' to avoid UIView conflict
 @property (readonly, nonatomic) AkaLogMessageOptions options;
 @property (readonly, nonatomic) NSDate *timestamp;
 @property (readonly, nonatomic) NSString *threadID; // ID as it appears in NSLog calculated from the machThreadID

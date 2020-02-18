@@ -16,14 +16,15 @@ More information can be found at: http://developer.akamai.com/
 VERSION
 ------------------
 
-20.33.0
+21.11.0
 
 
 INSTALLATION
 ------------------
 
 This framework is intended for inclusion as a dependency
-by other Akamai SDKs.  They will pull it in automatically
+by other Akamai SDKs. Those SDKs include it automatically
 when installed via CocoaPods.
 
-
+Carthage and manual installations should link and embed
+this framework.
