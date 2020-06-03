@@ -95,6 +95,19 @@ FOUNDATION_EXPORT const unsigned char AkaCommonVersionString[];
 + (void)configure;
 
 /**
+ * Initializes the Mobile SDK Common shared instance and configures each
+ * imported Akamai SDK framework. It should be called early in every app
+ * run, such as in -didFinishLaunchingWithOptions, before any SDK is used.
+ *
+ * Safe to call from any thread.
+ *
+ * This calls each Akamai framework's +configureWithOptions on the main
+ * thread and passes that SDK its corresponding options dictionary from
+ * the specified custom plist file.
+ */
++ (void)configureWithPlist:(nonnull NSString *)plistPath;
+
+/**
  * Pass a remote notification from your app to the Mobile SDK.
  *
  * Returns YES if consumed by the SDK (the fetch completion handler will be called).
