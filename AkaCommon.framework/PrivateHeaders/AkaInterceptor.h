@@ -11,20 +11,25 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AkaInterceptor : NSURLProtocol
+@interface AkaInterceptor: NSURLProtocol
 
-- (void)wasRedirectedToRequest:(NSMutableURLRequest *)request redirectResponse:(NSURLResponse *)response;
-- (void)didReceiveResponse:(nullable NSURLResponse *)response cacheStoragePolicy:(NSURLCacheStoragePolicy)policy;
+- (void)wasRedirectedToRequest:(NSMutableURLRequest *)request
+              redirectResponse:(NSURLResponse *)response;
+- (void)didReceiveResponse:(nullable NSURLResponse *)response
+        cacheStoragePolicy:(NSURLCacheStoragePolicy)policy;
 - (void)didReceiveData:(nullable NSData *)data;
 - (void)didFailWithError:(NSError *)error;
 - (void)didFailForHandlerOnlyWithError:(NSError *)error;
 - (void)didCompleteWithError:(nullable NSError *)error;
 
 // Get custom property from the request.
-- (id)propertyForKey:(NSString*)key inRequest:(NSMutableURLRequest*)request;
+- (id)propertyForKey:(NSString*)key
+           inRequest:(NSMutableURLRequest*)request;
 
 // Set custom property on the request.
-- (void)setProperty:(id)value forKey:(NSString*)key inRequest:(NSMutableURLRequest*)request;
+- (void)setProperty:(id)value
+             forKey:(NSString*)key
+          inRequest:(NSMutableURLRequest*)request;
 
 @end
 
