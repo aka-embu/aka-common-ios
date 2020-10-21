@@ -16,7 +16,7 @@ More information can be found at: http://developer.akamai.com/
 VERSION
 ------------------
 
-21.60.0
+21.70.0
 
 
 INSTALLATION
