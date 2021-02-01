@@ -183,22 +183,22 @@ NS_ASSUME_NONNULL_BEGIN
 FOUNDATION_EXTERN NSString * __nullable AkaExtractFileNameWithoutExtension(const char *filePath, BOOL copy);
 
 /**
- * The THIS_FILE macro gives you an NSString of the file name.
+ * The AKA_THIS_FILE macro gives you an NSString of the file name.
  * For simplicity and clarity, the file name does not include the full path or file extension.
  *
- * For example: DDLogWarn(@"%@: Unable to find thingy", THIS_FILE) -> @"MyViewController: Unable to find thingy"
+ * For example: DDLogWarn(@"%@: Unable to find thingy", AKA_THIS_FILE) -> @"MyViewController: Unable to find thingy"
  **/
-#define THIS_FILE         (AkaExtractFileNameWithoutExtension(__FILE__, NO))
+#define AKA_THIS_FILE         (AkaExtractFileNameWithoutExtension(__FILE__, NO))
 
 /**
- * The THIS_METHOD macro gives you the name of the current objective-c method.
+ * The AKA_THIS_METHOD macro gives you the name of the current objective-c method.
  *
- * For example: DDLogWarn(@"%@ - Requires non-nil strings", THIS_METHOD) -> @"setMake:model: requires non-nil strings"
+ * For example: DDLogWarn(@"%@ - Requires non-nil strings", AKA_THIS_METHOD) -> @"setMake:model: requires non-nil strings"
  *
  * Note: This does NOT work in straight C functions (non objective-c).
  * Instead you should use the predefined __FUNCTION__ macro.
  **/
-#define THIS_METHOD       NSStringFromSelector(_cmd)
+#define AKA_THIS_METHOD       NSStringFromSelector(_cmd)
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

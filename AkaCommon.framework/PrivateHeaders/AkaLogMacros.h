@@ -23,15 +23,15 @@
 /**
  * The constant/variable/method responsible for controlling the current log level.
  **/
-#ifndef LOG_LEVEL_DEF
-    #define LOG_LEVEL_DEF akaLogLevel
+#ifndef AKA_LOG_LEVEL_DEF
+    #define AKA_LOG_LEVEL_DEF akaLogLevel
 #endif
 
 /**
  * Whether async should be used by log messages, excluding error messages that are always sent sync.
  **/
-#ifndef LOG_ASYNC_ENABLED
-    #define LOG_ASYNC_ENABLED YES
+#ifndef AKA_LOG_ASYNC_ENABLED
+    #define AKA_LOG_ASYNC_ENABLED YES
 #endif
 
 extern const unsigned char akaLogPrefix[];
@@ -40,8 +40,8 @@ extern const unsigned char akaLogPrefix[];
  * These are the two macros that all other macros below compile into.
  * These big multiline macros makes all the other macros easier to read.
  **/
-#define LOG_MACRO(isAsynchronous, lvl, flg, ctx, atag, fnct, frmt, ...) \
-        [AkaLog log : isAsynchronous                                     \
+#define AKA_LOG_MACRO(isAsynchronous, lvl, flg, ctx, atag, fnct, frmt, ...) \
+       [AkaLog log : isAsynchronous                                     \
              level : lvl                                                \
               flag : flg                                                \
            context : ctx                                                \
@@ -51,8 +51,8 @@ extern const unsigned char akaLogPrefix[];
                tag : atag                                               \
             format : (@"%s " frmt), akaLogPrefix, ## __VA_ARGS__]
 
-#define LOG_MACRO_TO_AkaLOG(akalog, isAsynchronous, lvl, flg, ctx, atag, fnct, frmt, ...) \
-        [akalog log : isAsynchronous                                     \
+#define AKA_LOG_MACRO_TO_AkaLOG(akalog, isAsynchronous, lvl, flg, ctx, atag, fnct, frmt, ...) \
+       [akalog log : isAsynchronous                                     \
              level : lvl                                                \
               flag : flg                                                \
            context : ctx                                                \
@@ -81,24 +81,24 @@ extern const unsigned char akaLogPrefix[];
  *
  * We also define shorthand versions for asynchronous and synchronous logging.
  **/
-#define LOG_MAYBE(async, lvl, flg, ctx, tag, fnct, frmt, ...) \
-        do { if(lvl & flg) LOG_MACRO(async, lvl, flg, ctx, tag, fnct, frmt, ##__VA_ARGS__); } while(0)
+#define AKA_LOG_MAYBE(async, lvl, flg, ctx, tag, fnct, frmt, ...) \
+        do { if(lvl & flg) AKA_LOG_MACRO(async, lvl, flg, ctx, tag, fnct, frmt, ##__VA_ARGS__); } while(0)
 
-#define LOG_MAYBE_TO_AkaLOG(akalog, async, lvl, flg, ctx, tag, fnct, frmt, ...) \
-        do { if(lvl & flg) LOG_MACRO_TO_AkaLOG(akalog, async, lvl, flg, ctx, tag, fnct, frmt, ##__VA_ARGS__); } while(0)
+#define AKA_LOG_MAYBE_TO_AkaLOG(akalog, async, lvl, flg, ctx, tag, fnct, frmt, ...) \
+        do { if(lvl & flg) AKA_LOG_MACRO_TO_AkaLOG(akalog, async, lvl, flg, ctx, tag, fnct, frmt, ##__VA_ARGS__); } while(0)
 
 /**
  * Ready to use log macros with no context or tag.
  **/
-#define AkaLogAlways(frmt, ...)  LOG_MAYBE(LOG_ASYNC_ENABLED,             1,               1,   0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
-#define AkaLogError(frmt, ...)   LOG_MAYBE(NO,                LOG_LEVEL_DEF, AkaLogFlagError,   0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
-#define AkaLogWarn(frmt, ...)    LOG_MAYBE(LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, AkaLogFlagWarning, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
-#define AkaLogInfo(frmt, ...)    LOG_MAYBE(LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, AkaLogFlagInfo,    0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
-#define AkaLogDebug(frmt, ...)   LOG_MAYBE(LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, AkaLogFlagDebug,   0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
-#define AkaLogVerbose(frmt, ...) LOG_MAYBE(LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, AkaLogFlagVerbose, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
+#define AkaLogAlways(frmt, ...)  AKA_LOG_MAYBE(AKA_LOG_ASYNC_ENABLED, 1,                 1,                 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
+#define AkaLogError(frmt, ...)   AKA_LOG_MAYBE(NO,                    AKA_LOG_LEVEL_DEF, AkaLogFlagError,   0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
+#define AkaLogWarn(frmt, ...)    AKA_LOG_MAYBE(AKA_LOG_ASYNC_ENABLED, AKA_LOG_LEVEL_DEF, AkaLogFlagWarning, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
+#define AkaLogInfo(frmt, ...)    AKA_LOG_MAYBE(AKA_LOG_ASYNC_ENABLED, AKA_LOG_LEVEL_DEF, AkaLogFlagInfo,    0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
+#define AkaLogDebug(frmt, ...)   AKA_LOG_MAYBE(AKA_LOG_ASYNC_ENABLED, AKA_LOG_LEVEL_DEF, AkaLogFlagDebug,   0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
+#define AkaLogVerbose(frmt, ...) AKA_LOG_MAYBE(AKA_LOG_ASYNC_ENABLED, AKA_LOG_LEVEL_DEF, AkaLogFlagVerbose, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
 
-#define AkaLogErrorToAkaLog(akalog, frmt, ...)   LOG_MAYBE_TO_AkaLOG(akalog, NO,                LOG_LEVEL_DEF, AkaLogFlagError,   0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
-#define AkaLogWarnToAkaLog(akalog, frmt, ...)    LOG_MAYBE_TO_AkaLOG(akalog, LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, AkaLogFlagWarning, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
-#define AkaLogInfoToAkaLog(akalog, frmt, ...)    LOG_MAYBE_TO_AkaLOG(akalog, LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, AkaLogFlagInfo,    0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
-#define AkaLogDebugToAkaLog(akalog, frmt, ...)   LOG_MAYBE_TO_AkaLOG(akalog, LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, AkaLogFlagDebug,   0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
-#define AkaLogVerboseToAkaLog(akalog, frmt, ...) LOG_MAYBE_TO_AkaLOG(akalog, LOG_ASYNC_ENABLED, LOG_LEVEL_DEF, AkaLogFlagVerbose, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
+#define AkaLogErrorToAkaLog(akalog, frmt, ...)   AKA_LOG_MAYBE_TO_AkaLOG(akalog, NO,                    AKA_LOG_LEVEL_DEF, AkaLogFlagError,   0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
+#define AkaLogWarnToAkaLog(akalog, frmt, ...)    AKA_LOG_MAYBE_TO_AkaLOG(akalog, AKA_LOG_ASYNC_ENABLED, AKA_LOG_LEVEL_DEF, AkaLogFlagWarning, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
+#define AkaLogInfoToAkaLog(akalog, frmt, ...)    AKA_LOG_MAYBE_TO_AkaLOG(akalog, AKA_LOG_ASYNC_ENABLED, AKA_LOG_LEVEL_DEF, AkaLogFlagInfo,    0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
+#define AkaLogDebugToAkaLog(akalog, frmt, ...)   AKA_LOG_MAYBE_TO_AkaLOG(akalog, AKA_LOG_ASYNC_ENABLED, AKA_LOG_LEVEL_DEF, AkaLogFlagDebug,   0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)
+#define AkaLogVerboseToAkaLog(akalog, frmt, ...) AKA_LOG_MAYBE_TO_AkaLOG(akalog, AKA_LOG_ASYNC_ENABLED, AKA_LOG_LEVEL_DEF, AkaLogFlagVerbose, 0, nil, __PRETTY_FUNCTION__, frmt, ##__VA_ARGS__)

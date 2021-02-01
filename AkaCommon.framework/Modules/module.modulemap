@@ -12,6 +12,7 @@ framework module AkaCommon {
 	header "AkaLogMacros.h"
 	header "AkaNetwork.h"
 	header "AkaInterceptor.h"
+    header "AkaFileProtection.h"
   }
 }
 

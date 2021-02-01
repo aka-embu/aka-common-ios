@@ -20,7 +20,7 @@
 
 #import "AkaLog.h"
 
-#define LOG_CONTEXT_ALL INT_MAX
+#define AKA_LOG_CONTEXT_ALL INT_MAX
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-function"
@@ -123,7 +123,7 @@
  * If you run the application from a shell, then DDTTYLogger will automatically map the given color to
  * the closest available color. (xterm-256color or xterm-color which have 256 and 16 supported colors respectively.)
  *
- * This method invokes setForegroundColor:backgroundColor:forFlag:context: and applies it to `LOG_CONTEXT_ALL`.
+ * This method invokes setForegroundColor:backgroundColor:forFlag:context: and applies it to `AKA_LOG_CONTEXT_ALL`.
  **/
 - (void)setForegroundColor:(AkaColor *)txtColor backgroundColor:(AkaColor *)bgColor forFlag:(AkaLogFlag)mask;
 
@@ -133,7 +133,7 @@
  * A logging context is often used to identify log messages coming from a 3rd party framework,
  * although logging context's can be used for many different functions.
  *
- * Use LOG_CONTEXT_ALL to set the default color for all contexts that have no specific color set defined.
+ * Use AKA_LOG_CONTEXT_ALL to set the default color for all contexts that have no specific color set defined.
  *
  * Logging context's are explained in further detail here:
  * Documentation/CustomContext.md

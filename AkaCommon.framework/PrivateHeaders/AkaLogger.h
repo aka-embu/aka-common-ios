@@ -30,6 +30,8 @@ extern NSString * __nonnull const AkaLoggerNewLogFileCreatedNotification;
 // Convenience to create logs before they are lazy-loaded on first access.
 + (void)configure;
 
++ (NSArray<NSString *> *)logFilePaths;
+
 @end
 
 NS_ASSUME_NONNULL_END
